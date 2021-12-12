@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ProductCollection;
+use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class ProductController extends Controller
 {
@@ -21,16 +24,21 @@ class ProductController extends Controller
 
     public function index()
     {
-        $products = $this->product->all();
+        $products = $this->product->paginate(15);
 
-        return response()->json($products);
+        // return response()->json($products);
+
+        return new ProductCollection($products);
     }
 
     public function get($id)
     {
         $product = $this->product->find($id);
 
-        return response()->json($product);
+        // return response()->json($product);
+
+        return new ProductResource($product);
+
     }
 
     public function save(Request $request)
