@@ -24,6 +24,8 @@ Route::namespace('Api')->group(function () {
     Route::post('/products', 'ProductController@save');
     Route::put('/products/{id}', 'ProductController@update');
     Route::delete('/products/{id}', 'ProductController@delete');
+
+    Route::resource('/user', 'UserController');
 });
 
 
